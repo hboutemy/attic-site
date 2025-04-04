@@ -189,13 +189,13 @@ for arg in sys.argv[1:]:
     if not arg in RETIREES:
         print("%s does not appear to be a retired project" % arg)
         continue
-    flagdir = join(FLAGGED, arg)
-    if os.path.exists(flagdir):
+    flagfile = join(FLAGGED, arg)
+    if os.path.exists(flagfile):
         print("flagged/%s already exists" % arg)
         continue
     create_jira_template(arg)
-    os.mkdir(flagdir)
-    os.system("svn add %s" % flagdir)
+    open(flagfile, 'a').close()
+    os.system("svn add %s" % flagfile)
     create_project(arg)
     update_stylesheet(arg)
     check_wiki(arg)
